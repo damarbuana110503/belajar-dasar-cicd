@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        run: action/checkout@v4
+        uses: action/checkout@v4
 
       - name: list file in repo
         run: ls -la
