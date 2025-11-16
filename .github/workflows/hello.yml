@@ -1,13 +1,19 @@
-name: Coba CI/CD pertama
+name: Level 2 - Checkout & Run
 
 on:
   push:
     branches: ["main"]
 
 jobs:
-  hello:
+  run-simple:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Hello
-        run: echo "Hello CI/CD dari Github Actions!"
+      - name: Checkout repository
+        run: action/checkout@v4
+
+      - name: list file in repo
+        run: ls -la
+
+      - name: Run JS file
+        run: node app.js
