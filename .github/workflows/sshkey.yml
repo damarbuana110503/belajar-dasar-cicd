@@ -1,0 +1,25 @@
+name: Deploy App
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.1
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Deploy to server
+        run: |
+          ssh user@server_ip "mkdir -p /var/www/app"
+          rsync -avz --delete ./ user@server_ip:/var/www/app/
+          ssh user@server_ip "cd /var/www/app && ./restart-app.sh"
+
